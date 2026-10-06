@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#183e49"><meta name="description" content="晴屿，给情绪一个落脚的地方。记录当下、发现情绪线索，用一小段时间照顾自己。">
+  <title>晴屿 · 情绪日记与自我关怀</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='19' fill='%23183e49'/%3E%3Ccircle cx='32' cy='27' r='13' fill='%23ffcb66'/%3E%3Cpath d='M13 42q19-12 38 0M17 50q15-8 30 0' fill='none' stroke='white' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css?v=1">
+  <script src="./app.js?v=1" defer></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="#today" aria-label="晴屿首页"><span class="brandmark">◒</span><span>晴屿<small>SUNNY ISLE</small></span></a>
+    <div class="nav-label">给自己，一点时间</div>
+    <nav aria-label="主导航">
+      <button class="nav-button active" data-page="today"><span class="nav-icon">◉</span>此刻心情<span class="nav-number">01</span></button>
+      <button class="nav-button" data-page="insights"><span class="nav-icon">▥</span>情绪足迹<span class="nav-number">02</span></button>
+      <button class="nav-button" data-page="care"><span class="nav-icon">✳</span>关怀小站<span class="nav-number">03</span></button>
+    </nav>
+    <div class="sidebar-note"><span class="tiny-sun">✳</span><p>每一种情绪，<br>都可以在这里停一停。</p><span>不用急着变好。</span></div>
+    <button class="privacy-link" id="privacy-button">♧ 你的记录，只属于你</button>
+  </aside>
+  <div class="app-shell">
+    <header class="topbar"><span id="date-label"></span><div class="top-actions"><span class="local-label">仅保存在此浏览器</span><button id="demo-button" class="quiet-button">体验示例</button><span class="avatar" aria-hidden="true">晴</span></div></header>
+    <div id="demo-banner" class="demo-banner" hidden>你正在查看示例空间，以下记录均为虚构。<button id="exit-demo">返回我的日记</button></div>
+    <main>
+      <section id="page-today" class="page">
+        <div class="page-heading"><div><div class="eyebrow">A MOMENT FOR YOURSELF</div><h1>此刻，你的心情如何？</h1><p>不用组织好语言，先听听自己的感受。</p></div><span class="heading-note">今天，也有好好在生活。</span></div>
+        <div class="today-grid">
+          <form id="journal-form" class="card journal-card">
+            <div class="section-heading"><h2>把此刻留在这里</h2><span class="muted">约 30 秒</span></div>
+            <fieldset><legend>选择最接近的心情 <span class="required">必选</span></legend><div class="mood-options" id="mood-options"></div></fieldset>
+            <fieldset class="trigger-field"><legend>什么影响了你？<span class="optional">可多选，也可以跳过</span></legend><div class="chips" id="trigger-options"></div></fieldset>
+            <label class="note-label" for="journal-note">愿意多说一点吗？<span class="optional">选填</span></label>
+            <div class="textarea-wrap"><textarea id="journal-note" maxlength="600" placeholder="发生了什么？身体有什么感觉？或者，只写下一个词。"></textarea><span id="char-count">0 / 600</span></div>
+            <div class="form-bottom"><span id="form-message" role="status">不必每天开心，也值得被认真记录。</span><button class="primary-button" type="submit">保存此刻 <span>＋</span></button></div>
+          </form>
+          <aside class="right-column">
+            <div class="pause-card"><div class="mini-label">给现在的你</div><h2>世界很吵，<br>先和自己待一会儿。</h2><div class="breath-preview" aria-hidden="true"><span></span></div><p>把注意力轻轻放回呼吸。<br>只用 1 分钟，留一小块安静。</p><button class="light-button" data-practice="breath">开始呼吸练习 <span>1 min</span></button></div>
+            <div class="small-note"><span>☀</span><div><h3>记录，是关心自己的开始</h3><p>情绪没有好坏之分。即使只有一个词，也算一次认真倾听。</p></div></div>
+          </aside>
+        </div>
+        <section class="recent-section"><div class="section-heading"><h2>最近的心情<span id="entry-count" class="count-badge">0</span></h2><button class="text-button" data-page="insights">查看情绪足迹</button></div><div id="recent-entries"></div></section>
+      </section>
+      <section id="page-insights" class="page" hidden>
+        <div class="page-heading"><div><div class="eyebrow">YOUR EMOTIONAL LANDSCAPE</div><h1>慢慢看见，自己的节奏。</h1><p>把零散的心情连起来，发现值得关心的线索。</p></div><div class="range-tabs" role="group" aria-label="统计范围"><button class="selected" data-days="7">近 7 天</button><button data-days="30">近 30 天</button></div></div>
+        <div id="insights-content"></div>
+      </section>
+      <section id="page-care" class="page" hidden>
+        <div class="page-heading"><div><div class="eyebrow">SMALL STEPS, GENTLE CARE</div><h1>现在，做一件照顾自己的事。</h1><p>不必一次解决所有事。从一个小动作开始。</p></div></div>
+        <div id="care-recommendation" class="recommendation"></div>
+        <div class="care-grid">
+          <article class="care-card breath-care"><div class="care-art"><div class="care-orbit"></div><span class="duration">1 分钟</span></div><div class="care-body"><span class="category">正念 · 呼吸</span><h2>给呼吸一点空间</h2><p>跟随圆环，轻轻吸气、慢慢呼气。保持自然，不需要屏息。</p><button class="primary-button" data-practice="breath">开始练习</button></div></article>
+          <article class="care-card music-care"><div class="care-art"><div class="sound-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span class="duration">3 分钟</span></div><div class="care-body"><span class="category">音乐 · 聆听</span><h2>一段安静的声音</h2><p>柔和的合成音景。调低音量，让注意力停留在声音的起伏。</p><button class="primary-button" data-practice="music">开始聆听</button></div></article>
+          <article class="care-card stretch-care"><div class="care-art"><span class="stretch-symbol" aria-hidden="true">↟</span><span class="duration">3 分钟</span></div><div class="care-body"><span class="category">运动 · 舒展</span><h2>把紧绷轻轻放下</h2><p>松松肩膀，活动双手，走动片刻。选择身体舒服的幅度。</p><button class="primary-button" data-practice="stretch">开始舒展</button></div></article>
+        </div>
+        <div class="care-footnote"><h3>按自己的节奏就好</h3><p>这些是日常自我关怀练习，不替代专业支持。如果不舒服，可以随时停止；如果困扰持续影响生活，试着向信任的人或专业人员求助。</p><button class="text-button" id="sources-button">练习参考与说明</button></div>
+      </section>
+    </main>
+    <footer>晴屿 <span>·</span> 给情绪一个落脚的地方 <button id="help-button">需要更多支持？</button></footer>
+  </div>
+  <dialog id="practice-dialog" aria-labelledby="practice-title"><button class="close-button" id="close-practice" aria-label="关闭练习">×</button><div id="practice-content"></div></dialog>
+  <dialog id="info-dialog" aria-labelledby="info-title"><button class="close-button" id="close-info" aria-label="关闭">×</button><div id="info-content"></div></dialog>
+  <div class="toast" id="toast" role="status" hidden></div>
+</body>
+</html>
